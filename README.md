@@ -13,3 +13,16 @@ git clone https://github.com/tsadimas/django-posts
 ```
 pip install requirements.txt
 ```
+
+## Use a database backend
+* create a file db.json in git root directory, with the following 
+```
+{
+    "NAME": "dbname",
+    "USER": "user",
+    "PASSWORD": "pass",
+    "HOST": "localhost",   
+    "PORT": "3306"
+}
+```
+
