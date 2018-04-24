@@ -4,10 +4,13 @@
   <ul id="results">
     {% for post in data %}
        <li>
-          <a href = "/posts/{{post.id}}">
+          <a href = "/{{url_redirect}}/{{post.id}}">
                ID: {{post.id}} - Title : {{ post.title}}
           </a>
        </li>
     {% endfor %}
   </ul>
+
+  <br>
+  <a href="/{{url_redirect}}/new/">New Post</a>
 {% endblock %}

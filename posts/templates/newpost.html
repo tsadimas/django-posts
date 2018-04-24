@@ -2,7 +2,7 @@
 
 {% block body_block %}
 
-<form action='/posts/new/' method='post'>{% csrf_token %}
+<form action='/{{url_redirect}}/new/' method='post'>{% csrf_token %}
 {{ form.as_p }}
 <input type='submit' value='Submit' />
 </form>

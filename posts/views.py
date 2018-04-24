@@ -8,7 +8,7 @@ from .forms import PostsForm
 
 def list(request):
 	data = Posts.objects.all()
-	context = {'data' : data}
+	context = {'data' : data, 'url_redirect': 'posts'}
 	return render(request, 'list.html', context)
 
 def detail(request, postid):
@@ -29,4 +29,4 @@ def post_form(request):
 			post = Posts.objects.create(title=title,body=body,userId = request.user)
 			return HttpResponseRedirect("/posts/"+str(post.id))
 
-	return render(request, 'newpost.html', {'form': form})
+	return render(request, 'newpost.html', {'form': form, 'url_redirect': 'posts'})
