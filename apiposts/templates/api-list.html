@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+POSTS
+<ul id="results">
+    {% for post in data %}
+       <li>
+
+               {{post.text}}
+       </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

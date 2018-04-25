@@ -31,3 +31,52 @@ pip install -r requirements.txt
 }
 ```
 
+## Deploy to gCloud
+
+#### install gunicorn
+```
+pip install gunicorn
+```
+
+#### install [google cloud sdk](https://cloud.google.com/sdk/downloads)
+
+* set up STATIC_ROOT, ALLOWED_HOSTS in settings.py
+
+```
+ALLOWED_HOSTS = ['XXXXX.appspot.com']
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+```
+* create a file named _app.yaml_ in project root directory
+
+sample file:
+```
+entrypoint: gunicorn -b :$PORT postsproject.wsgi
+env: flex
+runtime: python
+
+handlers:
+- url: /static
+  static_dir: static
+```
+* run 
+```
+python manage.py collectstatic
+```
+#### gcloud init
+Run 
+```
+gcloud init 
+```
+select your gcloud account and your project
+Run
+```
+gcloud app deploy
+```
+see your app with
+```
+gcloud app browse
+```
+
+Links:
+* [Beginner’s Guide to Deploying a Django + PostgreSQL project on Google Cloud’s Flexible App Engine](https://codeburst.io/beginners-guide-to-deploying-a-django-postgresql-project-on-google-cloud-s-flexible-app-engine-e3357b601b91)
+* [Running Django on App Engine Standard Environment](https://cloud.google.com/python/django/appengine)
