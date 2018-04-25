@@ -43,7 +43,10 @@ pip install gunicorn
 * set up STATIC_ROOT, ALLOWED_HOSTS in settings.py
 
 ```
-ALLOWED_HOSTS = ['XXXXX.appspot.com']
+ALLOWED_HOSTS = [
+    os.environ['DEPLOY_HOST'],
+    '127.0.0.1',
+]
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 ```
 * create a file named _app.yaml_ in project root directory
@@ -53,6 +56,10 @@ sample file:
 entrypoint: gunicorn -b :$PORT postsproject.wsgi
 env: flex
 runtime: python
+
+env_variables:
+  DEBUG: 'False'
+  DEPLOY_HOST: "XXXXXXXXX.appspot.com"
 
 handlers:
 - url: /static
