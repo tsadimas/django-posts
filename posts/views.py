@@ -9,7 +9,7 @@ from .forms import PostsForm
 def list(request):
 	data = Posts.objects.all()
 	context = {'data' : data, 'url_redirect': 'posts'}
-	return render(request, 'list.html', context)
+	return render(request, 'api-list.html', context)
 
 def detail(request, postid):
 	post = Posts.objects.get(pk=postid)

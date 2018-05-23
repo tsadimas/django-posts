@@ -10,6 +10,10 @@ class Posts(models.Model):
 	class Meta:
 		verbose_name_plural = 'posts'
 
+	def __str__(self):
+		return self.title
+
+
 class Comments(models.Model):
 	postId = models.ForeignKey(Posts)
 	id = models.AutoField(primary_key=True)

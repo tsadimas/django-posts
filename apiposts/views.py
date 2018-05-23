@@ -7,23 +7,29 @@ from django.http import HttpResponseRedirect
 
 from posts.forms import PostsForm
 
-api_url = "http://localhost:3000"
+#api_url = "http://localhost:3000"
+api_url="https://node-test-197510.appspot.com"
 
 
 def list(request):
     try:
-        web_data = requests.get(url=api_url + "/posts")
+        web_data = requests.get(url=api_url + "/todos",headers={"x-auth":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YWE5MzI0M2E3YmZlYTJkN2U0ZjE0Y2IiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTI0NjU3MzA2fQ.Kgu6xAfDBmQhMHi5AgvFNbQPc2zNV2zUJJT_cGPHV64"})
     except:
         context={'error': 'connection error'}
         return render(request, 'error.html', context)
 
     data = web_data.json()
 
-    for record in data:
-        record["id"] = record.pop("_id")  # rename key _id (mongo) to id
+    #for record in data:
+    #    record["id"] = record.pop("_id")  # rename key _id (mongo) to id
 
-    context = {'data': data, 'url_redirect': 'apiposts'}
-    return render(request, 'list.html', context)
+    #context = {'data': data, 'url_redirect': 'apiposts'}
+    context = {'data': data['todos']}
+    print(data)
+    print(type(data))
+
+    #return render(request, 'api-list.html', context)
+    return render(request, 'api-list.html', context)
 
 
 def detail(request, postid):

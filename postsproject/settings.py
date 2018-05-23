@@ -39,7 +39,11 @@ SECRET_KEY = '_b!7!5wfl5s_^e)^8icne+9d+t6-29hq*c20gw1y+757-aqhw3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    os.environ['DEPLOY_HOST'],
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Application definition
@@ -53,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts',
-    'apiposts'
+    'apiposts',
 ]
 
 MIDDLEWARE = [
@@ -90,27 +94,25 @@ WSGI_APPLICATION = 'postsproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-'''
 
 
-DATABASES = {
-    'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME': get_secret('NAME'),
-                'USER': get_secret('USER'),
-                'PASSWORD': get_secret('PASSWORD'),
-                'HOST': get_secret('HOST'),
-                'PORT': get_secret('PORT'),
-                'CONN_MAX_AGE' : 600,
-    }
-}
+# DATABASES = {
+#     'default': {
+#                 'ENGINE': 'django.db.backends.mysql',
+#                 'NAME': get_secret('NAME'),
+#                 'USER': get_secret('USER'),
+#                 'PASSWORD': get_secret('PASSWORD'),
+#                 'HOST': get_secret('HOST'),
+#                 'PORT': get_secret('PORT'),
+#                 'CONN_MAX_AGE' : 600,
+#     }
+# }
 
 
 # Password validation
@@ -151,6 +153,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
